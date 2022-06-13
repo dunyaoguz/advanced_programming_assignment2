@@ -1,32 +1,56 @@
-#include <string>
-#include "TokenList.h"
-
 #ifndef DICTIONARY_H_
 #define DICTIONARY_H_
 
-using std::string;
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <list>
+#include <array>
+#include <vector>
+#include <set>
+#include <forward_list>
+#include "Token.h"
 
 class Dictionary
 {
     private:
-        string filename;
-        TokenList tokenListBuckets[27];                         // 26 alpha buckets + 1 none-alpha bucket
-        size_t bucketIndex(const string& token) const;
+        std::string filename;                                   // input file name
+        const std::string separators;                           // separator characters
+        std::vector<std::string> input_lines;                   // the lines in the input file
+        std::array<std::list<Token>, 27> token_list_buckets;    // array of 26 alpha buckets + 1 none-alpha bucket
+        
+        // member functions
+        size_t bucket_index(const std::string& tokenText) const;
+        std::vector<std::string> extract_tokens_from_line(const std::string& line) const;
+        void push_back_into_bucket(const std::string& tokenText, size_t line_number);
+        void extract_and_push(const std::string& line, size_t line_number);
     
     public:
-        Dictionary(const string& filename);
-        Dictionary() = delete;                                  // no default ctor
-        ~Dictionary() = default;                                // default dtor
-        Dictionary(const Dictionary& ) = default;               // copy ctor
-        Dictionary(Dictionary&&) = default;                     // move ctor
-        Dictionary& operator=(const Dictionary&) = default;     // copy assignment
-        Dictionary& operator=( Dictionary&&) = default;         // move assignment
+        // constructors
+        Dictionary(const std::string& filename, const std::string& separators = " \t\n");
+        Dictionary() = delete;                                                                  
+        Dictionary(const Dictionary& ) = default;
+        Dictionary(Dictionary&&) = default;
+        
+        // assignment operators
+        Dictionary& operator=(const Dictionary&);
+        Dictionary& operator=( Dictionary&&);
+        
+        // destructor
+        ~Dictionary() = default;
 
-        void processToken(const string& token, int linenum);
-        void print(std::ostream& out) const;
-
-        string getFilename() const;
-        TokenList getTokenListBuckets() const;
-        size_t getBucketIndex(const string& token) const;
+        // member functions
+        static std::string escape_tab_newline_chars(const std::string& separators);
+        void print_input_lines(std::set<char>& char_set) const;
+        void print_input_lines() const;
+        void print_input_tokens(std::set<char>& char_set) const;
+        void print_input_tokens() const;
+        void print_sorted_on_token_text(std::set<char>& char_set) const;
+        void print_sorted_on_token_text() const;
+        void print_sorted_on_token_frequency(std::set<char>& char_set) const;
+        void print_sorted_on_token_frequency() const;
+        void print_sorted_on_token_length(std::set<char>& char_set) const;
+        void print_sorted_on_token_length() const;
 };
 #endif

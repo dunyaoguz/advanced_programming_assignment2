@@ -14,7 +14,7 @@ class Token
     public:
         // constructors
         Token() = delete;
-        Token(std::string text, size_t line_num);
+        Token(std::string input, size_t line_num);
         Token(const Token& token) = default;
         Token(Token&& token) = default;
 

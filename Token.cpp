@@ -1,6 +1,3 @@
-#include <iostream>
-#include <vector>
-#include <string>
 #include "Token.h"
 
 // normal constructor
@@ -33,9 +30,9 @@ void Token::increment_frequency() { frequency++; }
 // if the specified line number is not in the list
 void Token::push_back_line_number(size_t lineNum) 
 { 
-    for(size_t &i : number_list) 
+    for(size_t i = 0; i<number_list.size(); i++) 
     {
-        if(i == lineNum) return;
+        if(number_list[i] == lineNum) return;
     }
     number_list.push_back(lineNum);
     increment_frequency();
@@ -83,9 +80,10 @@ std::ostream &operator<<(std::ostream &output, const Token &tokenToPrint)
         return output;
     } 
     std::string string_to_print = tokenToPrint.get_token_text();
-    for(size_t i : tokenToPrint.get_number_list()) 
+    std::vector<size_t> token_number_list = tokenToPrint.get_number_list();
+    for(size_t i = 0; i<token_number_list.size(); i++) 
     {
-        string_to_print = string_to_print + " " + std::to_string(i);
+        string_to_print = string_to_print + " " + std::to_string(token_number_list[i]);
     }
     output << string_to_print;
     return output;
