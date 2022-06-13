@@ -13,14 +13,13 @@ Dictionary::Dictionary(const std::string& filename, const std::string& separator
     size_t line_number = 0;
     std::string line;
     getline(fin, line);
-
     while (fin)
     {
         // std::cout << line << std::endl;
         ++line_number;
         input_lines.push_back(line);
         extract_and_push(line, line_number);
-        getline(fin, line);                      // attempt to read the next line, if any
+        getline(fin, line);
     }
     fin.close();
 }
@@ -44,10 +43,7 @@ std::vector<std::string> Dictionary::extract_tokens_from_line(const std::string&
     for(int i = 0; i<line.length(); i++) 
     {
         char current_char = line.at(i);
-        if(separators.find(current_char) == std::string::npos) 
-        {
-            word = word + current_char;
-        }
+        if(separators.find(current_char) == std::string::npos) { word += current_char; }
         else {
             words.push_back(word);
             word = "";
@@ -83,10 +79,7 @@ void Dictionary::push_back_into_bucket(const std::string& tokenText, size_t line
 void Dictionary::extract_and_push(const std::string& line, size_t line_number)
 {
     std::vector<std::string> words_in_line = extract_tokens_from_line(line);
-    for(int i = 0; i<words_in_line.size(); i++) 
-    {
-        push_back_into_bucket(words_in_line[i], line_number);
-    }
+    for(int i = 0; i<words_in_line.size(); i++) { push_back_into_bucket(words_in_line[i], line_number); }
 }
 
 // prints the input lines beginning with the characters stored in char_set
@@ -96,10 +89,7 @@ void Dictionary::print_input_lines(std::set<char>& char_set) const
     print_operation("INPUT LINES");
     if(char_set.empty())
     {
-        for(int i=0; i < input_lines.size(); i++) 
-        {
-            std::cout << input_lines.at(i) << std::endl;
-        }
+        for(int i=0; i < input_lines.size(); i++) { std::cout << input_lines[i] << std::endl; }
         return;
     }
 
@@ -107,10 +97,7 @@ void Dictionary::print_input_lines(std::set<char>& char_set) const
     {
         for(const char &c : char_set) 
         {
-            if(input_lines[i].find(c) == 0)
-            {
-                std::cout << input_lines[i] << std::endl;
-            }
+            if(input_lines[i].find(c) == 0) { std::cout << input_lines[i] << std::endl; }
         }
     }
 }
@@ -121,17 +108,13 @@ void Dictionary::print_input_lines() const
     print_input_lines(s);
 }
 
-
 void Dictionary::print_bucket(std::string c, std::list<Token> bucket) const
 {
     if(!isalpha(c[0])) { c = "<>"; }
     std::cout << "<---- " << c << " ---->" << std::endl;
     std::cout << std::endl;
 
-    for(const Token &t : bucket)
-    {
-        t.print(std::cout);;
-    }
+    for(const Token &t : bucket) { t.print(std::cout); }
     std::cout << std::endl;
 }
 
@@ -141,10 +124,7 @@ void Dictionary::print_bucket_fl(std::string c, std::forward_list<Token> bucket)
     std::cout << "<---- " << c << " ---->" << std::endl;
     std::cout << std::endl;
 
-    for(const Token &t : bucket)
-    {
-        t.print(std::cout);;
-    }
+    for(const Token &t : bucket) { t.print(std::cout); }
     std::cout << std::endl;
 }
 
@@ -178,12 +158,8 @@ void Dictionary::print_input_tokens(std::set<char>& char_set) const
     {
         std::string s(1, c);
         size_t index = bucket_index(s);
-        if(!token_list_buckets[index].empty())
-        {
-            print_bucket(s, token_list_buckets[index]);
-        }
+        if(!token_list_buckets[index].empty()) { print_bucket(s, token_list_buckets[index]); }
     }
-
 }
 
 void Dictionary::print_input_tokens() const
@@ -214,7 +190,6 @@ void Dictionary::print_sorted_on_token_text(std::set<char>& char_set) const
     {
         std::string s(1, c);
         size_t index = bucket_index(s);
-
         if(!token_list_buckets[index].empty())
         {
             std::forward_list<Token> forward_list { std::begin(token_list_buckets[index]), 
@@ -253,7 +228,6 @@ void Dictionary::print_sorted_on_token_frequency(std::set<char>& char_set) const
     {
         std::string s(1, c);
         size_t index = bucket_index(s);
-
         if(!token_list_buckets[index].empty())
         {
             std::forward_list<Token> forward_list { std::begin(token_list_buckets[index]), 
@@ -292,7 +266,6 @@ void Dictionary::print_sorted_on_token_length(std::set<char>& char_set) const
     {
         std::string s(1, c);
         size_t index = bucket_index(s);
-
         if(!token_list_buckets[index].empty())
         {
             std::forward_list<Token> forward_list { std::begin(token_list_buckets[index]), 

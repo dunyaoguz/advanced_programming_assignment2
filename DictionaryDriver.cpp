@@ -22,7 +22,7 @@ int main()
     // dictionary.print_input_tokens(char_set);
     // dictionary.print_sorted_on_token_text(char_set);
     // dictionary.print_sorted_on_token_frequency(char_set);
-    dictionary.print_sorted_on_token_length(char_set);
+    dictionary.print_sorted_on_token_length();
 
     return 0; // 0 means success!
 }
