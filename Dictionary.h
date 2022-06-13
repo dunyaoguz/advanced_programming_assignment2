@@ -25,6 +25,11 @@ class Dictionary
         std::vector<std::string> extract_tokens_from_line(const std::string& line) const;
         void push_back_into_bucket(const std::string& tokenText, size_t line_number);
         void extract_and_push(const std::string& line, size_t line_number);
+
+        // custom helper functions
+        void print_bucket(std::string c, std::list<Token> bucket) const;
+        void print_bucket_fl(std::string c, std::forward_list<Token> bucket) const;
+        void print_operation(std::string operation) const;
     
     public:
         // constructors
@@ -41,7 +46,6 @@ class Dictionary
         ~Dictionary() = default;
 
         // member functions
-        static std::string escape_tab_newline_chars(const std::string& separators);
         void print_input_lines(std::set<char>& char_set) const;
         void print_input_lines() const;
         void print_input_tokens(std::set<char>& char_set) const;
@@ -52,5 +56,9 @@ class Dictionary
         void print_sorted_on_token_frequency() const;
         void print_sorted_on_token_length(std::set<char>& char_set) const;
         void print_sorted_on_token_length() const;
+
+        // An example of a static member function, which could otherwise be a free function.
+        // replaces \t and \n with \\t and \\n in separators and returns the resulting string
+        static std::string escape_tab_newline_chars(const std::string& separators);
 };
 #endif

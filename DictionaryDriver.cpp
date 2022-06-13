@@ -13,30 +13,16 @@
 
 int main()
 {
-    std::string filename = "test/test.txt";
+    // std::string filename = "input_files/test_input_file.txt";
+    std::string filename = "input_files/input_file.txt";
     Dictionary dictionary(filename);
 
-    for(std::list<Token> i : dictionary.token_list_buckets) 
-    {
-        auto it = i.begin();
-
-        for(Token t: i) 
-        {
-            std::cout << *it << std::endl;
-            it++;
-        }
-    }
-
-    // std::list<int> listOfInts;
-    // for (int i = 0; i < 10; i++)
-    //     listOfInts.push_back(i);
-
-    // std::list<int>::iterator it = listOfInts.begin();
-    // for (int i: listOfInts) 
-    // {
-    //     std::cout << *it << std::endl;
-    //     it++;
-    // }
+    std::set<char> char_set = {'1', 'D', 's', 'w'};
+    // dictionary.print_input_lines(char_set);
+    // dictionary.print_input_tokens(char_set);
+    // dictionary.print_sorted_on_token_text(char_set);
+    // dictionary.print_sorted_on_token_frequency(char_set);
+    dictionary.print_sorted_on_token_length(char_set);
 
     return 0; // 0 means success!
 }
