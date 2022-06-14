@@ -1,7 +1,7 @@
 #include "Dictionary.h"
 
 // normal constructor
-Dictionary::Dictionary(const std::string& filename, const std::string& separators) : filename(filename), separators(separators)
+Dictionary::Dictionary(const std::string& filename, const std::string& separators) : filename{separators}, separators{separators}
 {
     // create an input file stream
     std::ifstream fin(filename); 

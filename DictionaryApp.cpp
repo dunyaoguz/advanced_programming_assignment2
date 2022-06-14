@@ -27,7 +27,8 @@ int main()
 
     std::cout << "Enter the seperator characters: " ;
     std::string separators;
-    std::cin >> separators;
+    std::cin.ignore();
+    std::getline(std::cin, separators);
 
     Dictionary dunyasDictionary(filename, separators);
 

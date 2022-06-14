@@ -10,6 +10,7 @@
 #include <vector>
 #include <set>
 #include <forward_list>
+#include <regex>
 #include "Token.h"
 
 class Dictionary
@@ -57,8 +58,20 @@ class Dictionary
         void print_sorted_on_token_length(std::set<char>& char_set) const;
         void print_sorted_on_token_length() const;
 
-        // An example of a static member function, which could otherwise be a free function.
+        // An example of a static member function, which could otherwise be a free function
         // replaces \t and \n with \\t and \\n in separators and returns the resulting string
-        static std::string escape_tab_newline_chars(const std::string& separators);
+        static std::string escape_tab_newline_chars(const std::string& separators)
+        {
+            std::string new_separators = separators;
+            if(separators.find('\t') != std::string::npos)
+            {
+                new_separators = std::regex_replace(new_separators, std::regex("\t"), "\\t");
+            }
+            if(separators.find('\n') != std::string::npos)
+            {
+                new_separators = std::regex_replace(new_separators, std::regex("\n"), "\\n");               
+            }
+            return new_separators;
+        }
 };
 #endif

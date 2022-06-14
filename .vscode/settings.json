@@ -68,6 +68,7 @@
         "__tree": "cpp",
         "forward_list": "cpp",
         "list": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "regex": "cpp"
     }
 }
