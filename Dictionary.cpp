@@ -1,9 +1,9 @@
 #include "Dictionary.h"
 
 // normal constructor
-Dictionary::Dictionary(const std::string& filename, const std::string& separators) : filename{separators}, separators{separators}
+Dictionary::Dictionary(const std::string& filename, const std::string& separators) : filename{filename}, separators{separators}
 {
-    // create an input file stream
+    // create an input file stream 
     std::ifstream fin(filename); 
     if (!fin)
     {
@@ -40,10 +40,13 @@ std::vector<std::string> Dictionary::extract_tokens_from_line(const std::string&
 {
     std::vector<std::string> words;
     std::string word = "";
+
+    std::string actual_separators = restore_fake_tab_newline_chars(separators);
+
     for(int i = 0; i<line.length(); i++) 
     {
         char current_char = line.at(i);
-        if(separators.find(current_char) == std::string::npos) { word += current_char; }
+        if(actual_separators.find(current_char) == std::string::npos) { word += current_char; }
         else {
             words.push_back(word);
             word = "";

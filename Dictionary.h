@@ -60,18 +60,32 @@ class Dictionary
 
         // An example of a static member function, which could otherwise be a free function
         // replaces \t and \n with \\t and \\n in separators and returns the resulting string
-        static std::string escape_tab_newline_chars(const std::string& separators)
+        static std::string restore_fake_tab_newline_chars(const std::string& str)
         {
-            std::string new_separators = separators;
-            if(separators.find('\t') != std::string::npos)
+            std::string fake_tab{ "\\t" }; // two characters, \ and t
+            std::string real_tab{ "\t" };  // one character, \t
+
+            std::string temp{ str };
+            // restore tabs
+            std::string::size_type pos = temp.find(fake_tab);
+            while (pos != std::string::npos)
             {
-                new_separators = std::regex_replace(new_separators, std::regex("\t"), "\\t");
+                temp.replace(pos, 2, real_tab);
+                pos = temp.find(fake_tab);
             }
-            if(separators.find('\n') != std::string::npos)
+
+            std::string fake_newline{ "\\n" }; // two characters, \ and n
+            std::string real_newline{ "\n" };  // one character, \n
+
+            // restore newlines
+            pos = temp.find(fake_newline);
+            while (pos != std::string::npos)
             {
-                new_separators = std::regex_replace(new_separators, std::regex("\n"), "\\n");               
+                temp.replace(pos, 2, real_newline);
+                pos = temp.find(fake_newline);
             }
-            return new_separators;
+
+            return temp;
         }
 };
 #endif
