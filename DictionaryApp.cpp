@@ -40,11 +40,16 @@ int main()
         std::string optional_chars = user_input.substr(1, user_input.length()-1);
 
         std::set<char> char_set;
+        size_t special_char_count = 0;
         if(!optional_chars.empty())
         {
             for(const char &c : optional_chars)
-            {
-                char_set.insert(c);
+            {   
+                // ensure we are only inserting special chars once
+                if(isalpha(c) || special_char_count < 1) {
+                    char_set.insert(c);
+                }
+                if(!isalpha(c)) { special_char_count++; };
             }
         }
 

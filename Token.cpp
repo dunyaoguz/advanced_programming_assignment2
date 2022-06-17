@@ -79,7 +79,7 @@ std::ostream &operator<<(std::ostream &output, const Token &tokenToPrint)
     {
         return output;
     } 
-    std::string string_to_print = tokenToPrint.get_token_text();
+    std::string string_to_print = tokenToPrint.get_token_text() + ':';
     std::vector<size_t> token_number_list = tokenToPrint.get_number_list();
     for(size_t i = 0; i<token_number_list.size(); i++) 
     {
